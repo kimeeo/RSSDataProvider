@@ -1,6 +1,5 @@
 package com.kimeeo.kAndroid.rssDataProvider;
 
-import com.kimeeo.kAndroid.listViews.dataProvider.BackgroundDataProvider;
 import com.kimeeo.kAndroid.listViews.dataProvider.BackgroundNetworkDataProvider;
 import com.kimeeo.kAndroid.listViews.dataProvider.DataModel;
 
@@ -37,16 +36,26 @@ abstract public class RSSDataManager extends BackgroundNetworkDataProvider
 
     @Override
     protected void invokeLoadNext() {
-        if (getNextURL() != null) {
-            String url = getNextURL();
-            try {
-                RSSReader reader = new RSSReader();
-                RSSFeed feed = reader.load(url);
-                BaseDataModel dataModel = new BaseDataModel();
-                dataModel.setFeed(feed);
-                processDataManager(dataModel);
+        String url = getNextURL();
+        if (url != null) {
+            if(url!=null) {
+                try {
+                    RSSReader reader = new RSSReader();
+                    RSSFeed feed = reader.load(url);
+                    BaseDataModel dataModel = new BaseDataModel();
+                    dataModel.setFeed(feed);
+                    processDataManager(dataModel);
 
-            } catch (RSSReaderException e) {
+                } catch (RSSReaderException e) {
+                    setCanLoadNext(false);
+                    dataLoadError(null);
+                } catch (Exception e) {
+                    setCanLoadNext(false);
+                    dataLoadError(null);
+                }
+            }
+            else
+            {
                 setCanLoadNext(false);
                 dataLoadError(null);
             }
@@ -86,3 +95,4 @@ abstract public class RSSDataManager extends BackgroundNetworkDataProvider
         setRefreshEnabled(false);
     }
 }
+
