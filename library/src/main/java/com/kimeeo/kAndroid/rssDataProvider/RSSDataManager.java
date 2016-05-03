@@ -16,12 +16,12 @@ import java.util.List;
  */
 abstract public class RSSDataManager extends BackgroundNetworkDataProvider
 {
-    RSSReader reader;
+
     public RSSDataManager()
     {
         setCanLoadRefresh(false);
         setRefreshEnabled(false);
-        reader = new RSSReader();
+
     }
 
     @Override
@@ -37,22 +37,20 @@ abstract public class RSSDataManager extends BackgroundNetworkDataProvider
 
     @Override
     protected void invokeLoadNext() {
-        if(getNextURL()!=null)
-        {
+        if (getNextURL() != null) {
             String url = getNextURL();
             try {
-                RSSFeed feed= reader.load(url);
-                List<RSSItem> data=feed.getItems();
+                RSSReader reader = new RSSReader();
+                RSSFeed feed = reader.load(url);
                 BaseDataModel dataModel = new BaseDataModel();
-                dataModel.setDataProvider(data);
+                dataModel.setFeed(feed);
                 processDataManager(dataModel);
 
             } catch (RSSReaderException e) {
                 setCanLoadNext(false);
                 dataLoadError(null);
             }
-        }
-        else {
+        } else {
             setCanLoadNext(false);
             dataLoadError(null);
         }
@@ -61,6 +59,8 @@ abstract public class RSSDataManager extends BackgroundNetworkDataProvider
     public class BaseDataModel implements DataModel
     {
         private List list;
+        private RSSFeed feed;
+
         @Override
         public List getDataProvider() {
             return list;
@@ -68,6 +68,16 @@ abstract public class RSSDataManager extends BackgroundNetworkDataProvider
         @Override
         public void setDataProvider(List list) {
             this.list =list;
+        }
+
+        public void setFeed(RSSFeed feed) {
+            this.feed = feed;
+            List<RSSItem> list = feed.getItems();
+            setDataProvider(list);
+        }
+
+        public RSSFeed getFeed() {
+            return feed;
         }
     };
     @Override
