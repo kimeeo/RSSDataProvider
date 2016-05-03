@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+
+    final SUPPORT_LIBRARY_VERSION = '23.3.0'
+    compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
+
+    final KANDROID_LISTVIEW_VERSION = '2581902a9c'
+    compile "com.github.kimeeo:KAndroid_ListView:$KANDROID_LISTVIEW_VERSION"
+
+    //RSS
+    compile 'com.github.ahorn:android-rss:v1.0-rc1'
+}
