@@ -28,6 +28,7 @@ dependencies {
     final KANDROID_LISTVIEW_VERSION = '7d7ad9ad1a'
     compile "com.github.kimeeo:KAndroid_ListView:$KANDROID_LISTVIEW_VERSION"
 
+    //Changes
     //RSS
     compile 'com.github.ahorn:android-rss:v1.0-rc1'
 }
