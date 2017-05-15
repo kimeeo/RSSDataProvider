@@ -1,7 +1,7 @@
 package com.kimeeo.kAndroid.rssDataProvider;
 
-import com.kimeeo.kAndroid.listViews.dataProvider.BackgroundNetworkDataProvider;
-import com.kimeeo.kAndroid.listViews.dataProvider.DataModel;
+import com.kimeeo.kAndroid.dataProvider.BackgroundNetworkDataProvider;
+import com.kimeeo.kAndroid.dataProvider.DataModel;
 
 import org.mcsoxford.rss.RSSFeed;
 import org.mcsoxford.rss.RSSItem;
